@@ -51,7 +51,7 @@ bool Puzzle::move(direction dir) noexcept{
         case up:
             //can't move up if you're in the last row
             if(y != 3){
-                std::swap(board[y][x], board[y+1][x]);
+                std::swap(board[y][x], board[y + 1][x]);
                 y++;
                 return true;
             }
@@ -59,7 +59,7 @@ bool Puzzle::move(direction dir) noexcept{
         case down:
             //can't move down if you're in the first row
             if(y != 0){
-                std::swap(board[y][x], board[y-1][x]);
+                std::swap(board[y][x], board[y - 1][x]);
                 y--;
                 return true;
             }
@@ -67,7 +67,7 @@ bool Puzzle::move(direction dir) noexcept{
         case left:
             //can't move left if you're in the first column
             if(x != 3){
-                std::swap(board[y][x], board[y][x+1]);
+                std::swap(board[y][x], board[y][x + 1]);
                 x++;
                 return true;
             }
@@ -75,7 +75,7 @@ bool Puzzle::move(direction dir) noexcept{
         case right:
             //can't move right if you're in the last column
             if(x != 0){
-                std::swap(board[y][x], board[y][x-1]);
+                std::swap(board[y][x], board[y][x - 1]);
                 x--;
                 return true;
             }
@@ -111,7 +111,7 @@ bool Puzzle::isSolvable() noexcept {
                 if(k == i) {
                     isPassed = true;
                 }
-                if(isPassed && k < i) {
+                if(isPassed && k != 0 && k < i) {
                     num[i]++;
                 }
             }
