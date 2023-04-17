@@ -15,11 +15,12 @@ private:
     void shuffle() noexcept;
 
 public:
-    Puzzle();
+    Puzzle(bool shuffle);
     void printBoard() const noexcept;
     bool move(direction dir) noexcept;
     bool checkWin() noexcept;
     bool isSolvable() noexcept;
+    std::string hash(std::vector<unsigned short> group) noexcept;
 };
 
 

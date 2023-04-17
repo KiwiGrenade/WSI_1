@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include <random>
 #include "Puzzle.h"
-
+#include <algorithm>
 void Puzzle::printBoard() const noexcept {
     for (auto & i : board) {
         for (auto j: i) {
@@ -15,7 +15,7 @@ void Puzzle::printBoard() const noexcept {
     }
 }
 
-Puzzle::Puzzle() {
+Puzzle::Puzzle(bool shuffle) {
     x = 3;
     y = 3;
 
@@ -30,7 +30,10 @@ Puzzle::Puzzle() {
             counter++;
         }
     }
-    shuffle();
+    if(shuffle)
+    {
+        this->shuffle();
+    }
 }
 
 void Puzzle::shuffle() noexcept {
@@ -122,5 +125,31 @@ bool Puzzle::isSolvable() noexcept {
     sum = std::accumulate(num, num + 16, sum);
 
     return (sum + y + 1) % 2 == 0;
+}
+
+ std::string Puzzle::hash(std::vector<unsigned short> group) noexcept {
+    if(group.empty()) {
+        for (unsigned short i = 0; i < 16; ++i) {
+            group.push_back(i);
+        }
+    }
+
+    std::string hashString(16*2, '0');
+
+    for(unsigned short i = 0; i < 4; i++) {
+        for(unsigned short j = 0; j < 4; j++) {
+            if(std::find(group.begin(), group.end(), board[i][j]) != group.end()) {
+                hashString[2 * board[i][j]] = char(i);
+                hashString[2 * board[i][j] + 1] = char(j);
+            }
+            else {
+                hashString[2 * board[i][j]] = 'x';
+                hashString[2 * board[i][j] + 1] = 'x';
+            }
+        }
+    }
+
+    hashString.erase(std::remove(hashString.begin(), hashString.end(), 'x'), hashString.end());
+    return hashString;
 }
 
