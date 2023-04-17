@@ -1,0 +1,3 @@
+/home/jaskow/Studies/Repo/WSI_1/cmake-build-debug/CMakeFiles/L1.dir
+/home/jaskow/Studies/Repo/WSI_1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jaskow/Studies/Repo/WSI_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

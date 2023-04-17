@@ -4,6 +4,7 @@
 
 int main()
 {
+    size_t g = 0;
     Puzzle* board = new Puzzle();
     board->printBoard();
     std::cout << board->checkWin();

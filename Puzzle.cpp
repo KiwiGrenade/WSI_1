@@ -18,7 +18,6 @@ void Puzzle::printBoard() const noexcept {
 Puzzle::Puzzle() {
     x = 3;
     y = 3;
-    g = 0;
 
     size_t counter = 1;
     for (auto & i : board) {
@@ -50,7 +49,6 @@ bool Puzzle::move(direction dir) noexcept{
             if(y != 3){
                 std::swap(board[y][x], board[y+1][x]);
                 y++;
-                g++;
                 return true;
             }
             break;
@@ -59,7 +57,6 @@ bool Puzzle::move(direction dir) noexcept{
             if(y != 0){
                 std::swap(board[y][x], board[y-1][x]);
                 y--;
-                g++;
                 return true;
             }
             break;
@@ -68,7 +65,6 @@ bool Puzzle::move(direction dir) noexcept{
             if(x != 3){
                 std::swap(board[y][x], board[y][x+1]);
                 x++;
-                g++;
                 return true;
             }
             break;
@@ -77,36 +73,11 @@ bool Puzzle::move(direction dir) noexcept{
             if(x != 0){
                 std::swap(board[y][x], board[y][x-1]);
                 x--;
-                g++;
                 return true;
             }
             break;
     }
     return false;
-}
-
-void Puzzle::setBoard(short val[4][4]) noexcept {
-    std::unordered_set<short> set;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            if(val[i][j] > 15) {
-                std::cout << "SetBoardError: inserted value is too big!" << std::endl;
-                return;
-            }
-            set.insert(val[i][j]);
-        }
-    }
-    if(set.size() == 16){
-        memcpy(this->board, val, sizeof(this->board));
-    }
-    else{
-        std::cout << "SetBoardError: inserted values aren't unique!" << std::endl;
-    }
-
-}
-
-size_t Puzzle::getG() const noexcept {
-    return g;
 }
 
 bool Puzzle::checkWin() noexcept {
