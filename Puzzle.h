@@ -9,15 +9,17 @@ enum direction {up = 0, down = 1, left = 2, right = 3};
 
 class Puzzle {
 private:
-    short board[4][4]{};
-    short x;
-    short y;
+    unsigned short board[4][4]{};
+    unsigned short x;
+    unsigned short y;
     void shuffle() noexcept;
+
 public:
     Puzzle();
     void printBoard() const noexcept;
     bool move(direction dir) noexcept;
     bool checkWin() noexcept;
+    bool isSolvable() noexcept;
 };
 
 

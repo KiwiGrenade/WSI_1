@@ -19,7 +19,7 @@ Puzzle::Puzzle() {
     x = 3;
     y = 3;
 
-    size_t counter = 1;
+    unsigned short counter = 1;
     for (auto & i : board) {
         for (auto& j: i) {
             if(counter == 16)
@@ -36,9 +36,13 @@ Puzzle::Puzzle() {
 void Puzzle::shuffle() noexcept {
     std::random_device randomDevice;
     std::mt19937 generator(randomDevice());
-    std::uniform_int_distribution<int> distribution(0, 3);
+    std::uniform_int_distribution<unsigned short> distribution(0, 3);
     for (int i = 0; i < 1000; ++i) {
-        move(direction(distribution(generator)));
+        unsigned short x1 = distribution(generator);
+        unsigned short x2 = distribution(generator);
+        unsigned short y1 = distribution(generator);
+        unsigned short y2 = distribution(generator);
+        std::swap(board[y1][x1], board[y2][x2]);
     }
 }
 
@@ -96,5 +100,27 @@ bool Puzzle::checkWin() noexcept {
         }
     }
     return true;
+}
+
+bool Puzzle::isSolvable() noexcept {
+    unsigned short num[16]{0};
+    for(size_t i = 2; i < 16; i++) {
+        bool isPassed = false;
+        for (auto & j : board) {
+            for (unsigned short k : j) {
+                if(k == i) {
+                    isPassed = true;
+                }
+                if(isPassed && k < i) {
+                    num[i]++;
+                }
+            }
+        }
+    }
+
+    int sum = 0;
+    sum = std::accumulate(num, num + 16, sum);
+
+    return (sum + y + 1) % 2 == 0;
 }
 
