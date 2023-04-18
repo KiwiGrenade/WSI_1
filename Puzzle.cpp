@@ -153,3 +153,11 @@ bool Puzzle::isSolvable() noexcept {
     return hashString;
 }
 
+size_t Puzzle::getCount() const noexcept {
+    return count;
+}
+
+void Puzzle::setCount(size_t count) noexcept {
+    Puzzle::count = count;
+}
+

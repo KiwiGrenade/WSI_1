@@ -12,15 +12,19 @@ private:
     unsigned short board[4][4]{};
     unsigned short x;
     unsigned short y;
+    std::size_t count;
     void shuffle() noexcept;
 
 public:
     Puzzle(bool shuffle);
+
     void printBoard() const noexcept;
     bool move(direction dir) noexcept;
     bool checkWin() noexcept;
     bool isSolvable() noexcept;
     std::string hash(std::vector<unsigned short> group) noexcept;
+    size_t getCount() const noexcept;
+    void setCount(size_t count) noexcept;
 };
 
 

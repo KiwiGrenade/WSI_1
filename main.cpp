@@ -2,13 +2,14 @@
 #include <utility>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
 #include <deque>
 #include "Puzzle.h"
 
 
 bool visitNode(Puzzle &puzzle,
                std::unordered_set<std::string> &visited,
-               std::unordered_set<std::string> &closedList,
+               std::unordered_map<std::string, std::size_t> &closedList, // database
                std::vector<unsigned short> &groupWithBlank,
                std::vector<unsigned short> &group) {
     std::string puzzleHashWithBlank = puzzle.hash(groupWithBlank);
@@ -21,11 +22,16 @@ bool visitNode(Puzzle &puzzle,
     visited.insert(puzzleHashWithBlank);
 
     std::string groupHash = puzzle.hash(group);
-    if (!closedList.contains(groupHash)){
-        auto itr = closedList.find(groupHash);
-        *itr = puzzle.;
+    // If the permutation (it's hash) hasn't been reached before
+    // assign the number of moves it took to reach it as key in the database
+    if (!closedList.contains(groupHash))    {
+        closedList[groupHash] = puzzle.getCount();
     }
-
+    // If the number of moves it took to reach the current permutation
+    // is less than it's key in DB - update it!
+    else if (closedList[groupHash] > puzzle.getCount()){
+        closedList[groupHash] = puzzle.getCount();
+    }
         return false;
 }
 
