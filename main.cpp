@@ -32,10 +32,11 @@ bool visitNode(Puzzle &puzzle,
     else if (closedList[groupHash] > puzzle.getCount()){
         closedList[groupHash] = puzzle.getCount();
     }
-        return false;
+
+    return true;
 }
 
-void buildPatternDB(std::vector<unsigned short> group)
+std::unordered_map<std::string, std::size_t> buildPatternDB(std::vector<unsigned short> group)
 {
     Puzzle puzzle = new Puzzle(false);
     std::vector<unsigned short> groupWithBlank = std::move(group);
@@ -44,15 +45,15 @@ void buildPatternDB(std::vector<unsigned short> group)
     // Permutations of groupWithBlank already visited
     std::unordered_set<std::string> visited;
     // Permutation of group tile locations with min move count so far
-    std::unordered_set<std::string> closedList;
+    std::unordered_map<std::string, std::size_t> closedList;
     // Next permutations to visit
-    std::deque<std::pair<Puzzle, std::pair<unsigned short, unsigned short>>> openList;
+    std::deque<std::pair<Puzzle, direction>> openList;
     // puzzle, prior direction
-    openList.emplace_back(puzzle,std::pair<unsigned short, unsigned short>(0, 0));
+    openList.emplace_back(puzzle, direction(none));
 
     while(!openList.empty()) {
         Puzzle current = openList[0].first;
-        std::pair<unsigned short, unsigned short> prevMove = openList[0].second;
+        direction prevMove = openList[0].second;
 
         openList.pop_front();
 
@@ -61,18 +62,39 @@ void buildPatternDB(std::vector<unsigned short> group)
                       closedList,
                       groupWithBlank,
                       group)) {
+            continue;
+        }
+        for (unsigned short i = 0; i < 4; i++){
+            if(direction(i) == prevMove) {
+                continue;
+            }
 
+            Puzzle simPuzzle = current;
+            bool validMove = simPuzzle.move(direction(i));
+
+            if(!validMove) {
+                continue;
+            }
+
+            unsigned short dispValue = simPuzzle.getFromBoard(current.getX(), current.getY());
+            if (std::find(group.begin(), group.end(), dispValue) != group.end()) {
+                simPuzzle.iterCount();
+            }
+            openList.emplace_back(simPuzzle, direction(i));
         }
     }
+    return closedList;
 }
 
 
 int main()
 {
-    Puzzle* board = new Puzzle(true);
-
-    board->printBoard();
-    std::cout << board->isSolvable();
+    std::vector<std::vector<unsigned short>> groups {{1,5,6,9,10,13},{7,8,11,12,14,15},{2,3,4}};
+    std::unordered_map<std::string, std::size_t> closedList;
+    for (const std::vector<unsigned short>& group: groups) {
+        auto list = buildPatternDB(group);
+        closedList.insert(list.begin(),list.end());
+    }
 
     return 0;
 }

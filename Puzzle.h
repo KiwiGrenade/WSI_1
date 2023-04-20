@@ -5,7 +5,7 @@
 #ifndef L1_PUZZLE_H
 #define L1_PUZZLE_H
 
-enum direction {up = 0, down = 1, left = 2, right = 3};
+enum direction {up = 0, down = 1, left = 2, right = 3, none = -1};
 
 class Puzzle {
 private:
@@ -24,7 +24,12 @@ public:
     bool isSolvable() noexcept;
     std::string hash(std::vector<unsigned short> group) noexcept;
     size_t getCount() const noexcept;
-    void setCount(size_t count) noexcept;
+    void iterCount() noexcept;
+    unsigned short getFromBoard(unsigned short x, unsigned short y) noexcept;
+
+    unsigned short getX() const;
+
+    unsigned short getY() const;
 };
 
 

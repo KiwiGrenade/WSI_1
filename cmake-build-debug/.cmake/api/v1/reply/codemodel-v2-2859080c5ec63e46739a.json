@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.23"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "L1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-L1-Debug-918d7626ebe4d98d5951.json",
+					"jsonFile" : "target-L1-Debug-4df4c17f7f54495977e1.json",
 					"name" : "L1",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jaskow/Studies/Repo/WSI_1/cmake-build-debug",
-		"source" : "/home/jaskow/Studies/Repo/WSI_1"
+		"build" : "D:/Repozytoria/WSI/L1/cmake-build-debug",
+		"source" : "D:/Repozytoria/WSI/L1"
 	},
 	"version" : 
 	{

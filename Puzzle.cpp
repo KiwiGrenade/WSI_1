@@ -157,7 +157,19 @@ size_t Puzzle::getCount() const noexcept {
     return count;
 }
 
-void Puzzle::setCount(size_t count) noexcept {
-    Puzzle::count = count;
+void Puzzle::iterCount() noexcept {
+    count++;
+}
+
+unsigned short Puzzle::getFromBoard(unsigned short x, unsigned short y) noexcept {
+    return board[y][x];
+}
+
+unsigned short Puzzle::getX() const {
+    return x;
+}
+
+unsigned short Puzzle::getY() const {
+    return y;
 }
 
